@@ -29,8 +29,8 @@
     
     <dependency>
       <groupId>com.ctrip.framework.apollo</groupId>
-      <artifactId>apollo-client</artifactId>
-      <version>0.9.1-SNAPSHOT</version>
+      <artifactId>apollo-client-jdk6</artifactId>
+      <version>0.10.3-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     

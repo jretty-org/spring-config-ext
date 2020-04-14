@@ -41,7 +41,7 @@ public class ShowConfig implements ApplicationContextAware {
     private void doInit() {
         showBeans(applicationContext);
         showConfig(env);
-        showSystemProps();
+        //showSystemProps();
     }
     
     @Override
@@ -91,26 +91,25 @@ public class ShowConfig implements ApplicationContextAware {
     /** 输出spring配置 */
     public void showConfig(Environment env) {
         StringBuilder builder = new StringBuilder();
-        builder.append("\n\r");
-        builder.append(" Show spring config ST: -----------------------------------------------------------");
-        builder.append("\n\r");
-        builder.append("active profiles=").append(Arrays.toString(env.getActiveProfiles())).append("\r\n");
+        builder.append("\r\n");
+        builder.append("Show spring config ST: -------------------------------------------");
+        builder.append("active profiles=").append(Arrays.toString(env.getActiveProfiles())).append("\r\n\r\n");
         ConfigurableEnvironment cenv = (ConfigurableEnvironment) env;
         MutablePropertySources srcs = cenv.getPropertySources();
         
         for (PropertySource<?> source : srcs) {
             if (source instanceof EnumerablePropertySource) {
-                builder.append("-----------------------PropertySource: " 
+                builder.append("==>PropertySource: " 
                 + source.getName() 
                 + ", size="
                 + ((EnumerablePropertySource<?>) source).getPropertyNames().length+ "\r\n");
                 for (String name : ((EnumerablePropertySource<?>) source).getPropertyNames()) {
-                    builder.append(name).append("=").append(source.getProperty(name)).append("\r\n");
+                    builder.append(name).append(" = ").append(source.getProperty(name)).append("\r\n");
                 }
                 builder.append("\r\n");
             }
         }
-        builder.append(" Show spring config EN. -----------------------------------------------------------");
+        builder.append("EN Show spring config. -------------------------------------------");
         logger.info(builder.toString());
     }
     
@@ -119,9 +118,9 @@ public class ShowConfig implements ApplicationContextAware {
     public void showSystemProps() {
         if (logger.isDebugEnabled()) {
             StringBuilder builder = new StringBuilder();
-            builder.append("\n\r");
-            builder.append(" Show System.getProperties ST: ---------------------------------------------------------");
-            builder.append("\n\r");
+            builder.append("\r\n");
+            builder.append("Show System.getProperties ST: ----------------------------------");
+            builder.append("\r\n");
             Properties props = System.getProperties();
             
             Object[] key = props.keySet().toArray();
@@ -131,9 +130,9 @@ public class ShowConfig implements ApplicationContextAware {
                 builder.append(key[i]).append(": ").append(props.get(key[i])).append("\r\n");
             }
             
-            builder.append("\n\r");
-            builder.append(" Show System.getenv ST: ----------------------------------------------------------------");
-            builder.append("\n\r");
+            builder.append("\r\n");
+            builder.append("Show System.getenv ST: -----------------------------------------");
+            builder.append("\r\n");
             Map<String, String> env = System.getenv();
             
             key = env.keySet().toArray();
@@ -143,7 +142,7 @@ public class ShowConfig implements ApplicationContextAware {
                 builder.append(key[i]).append(": ").append(env.get(key[i])).append("\r\n");
             }
             
-            builder.append(" Show System.getenv EN. ----------------------------------------------------------------");
+            builder.append("Show System.getenv EN. ------------------------------------------");
             logger.info(builder.toString());
         }
     }
